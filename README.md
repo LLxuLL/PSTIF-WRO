@@ -1,6 +1,3 @@
-Here is the fully translated English version of your README:
-
-```markdown
 # PSTIF-WRO: Partitioned Spatio-Temporal Intuitionistic Fuzzy Wasserstein Robust Optimization
 
 A Wasserstein Distance-based Spatio-Temporal Intuitionistic Fuzzy Robust Ranking Framework
