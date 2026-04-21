@@ -1,0 +1,12 @@
+{
+  "dataset": "nyc_taxi",
+  "checkpoint": "outputs/checkpoints/best_model.pth",
+  "metrics": {
+    "auc": 0.9120232318621378,
+    "accuracy": 0.8279333333333333,
+    "precision": 0.8939495798319328,
+    "recall": 0.7111913357400722,
+    "f1": 0.792166207461464,
+    "ap": 0.9099187876821994
+  }
+}

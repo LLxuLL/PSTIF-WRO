@@ -1,0 +1,262 @@
+PSTIF-WRO Project Structure
+================================================================================
+
+ROOT/
+├── layer.txt                           [PROJECT HIERARCHY FILE]
+├── README.md                           [PROJECT DOCUMENTATION]
+├── requirements.txt                    [PYTHON DEPENDENCIES]
+├── train.py                           [MAIN TRAINING SCRIPT]
+├── evaluate.py                        [EVALUATION SCRIPT]
+│
+├── configs/
+│   └── default.yaml                   [DEFAULT CONFIGURATION]
+│
+├── data/
+│   ├── raw/                           [RAW DATASETS]
+│   │   ├── heart+disease/
+│   │   │   ├── cleveland.data
+│   │   │   ├── long-beach-va.data
+│   │   │   ├── switzerland.data
+│   │   │   └── hungarian.data
+│   │   ├── sepsis+survival/
+│   │   │   ├── s41598-020-73558-3_sepsis_survival_primary_cohort.csv
+│   │   │   ├── s41598-020-73558-3_sepsis_survival_study_cohort.csv
+│   │   │   └── s41598-020-73558-3_sepsis_survival_validation_cohort.csv
+│   │   ├── statlog+german+credit/
+│   │   │   └── german.data
+│   │   ├── creditcard.csv
+│   │   ├── Electronics.csv
+│   │   └── yellowtaxi_data.csv
+│   └── processed/                     [PROCESSED DATA]
+│
+├── outputs/
+│   ├── checkpoints/                   [MODEL CHECKPOINTS]
+│   ├── logs/                          [TRAINING LOGS]
+│   └── results/                       [EVALUATION RESULTS]
+│
+├── scripts/
+│   └── run_experiments.sh             [EXPERIMENT SCRIPTS]
+│
+├── __init__.py
+│
+├── models/                        [CORE MODEL MODULES]
+│   ├── __init__.py
+│   ├── pstif_wro.py              [MAIN PSTIF-WRO MODEL]
+│   │   └── Classes:
+│   │       - PSTIFWRO            [Main model class]
+│   │       - PSTIFWROConfig      [Configuration class]
+│   │
+│   ├── if_measure_embedding.py   [IF-MEASURE EMBEDDING LAYER]
+│   │   └── Classes:
+│   │       - IFMeasureEmbedding       [Single measure embedding]
+│   │       - IFMeasureBatchEmbedding  [Batch measure embedding]
+│   │
+│   ├── pw_gcn.py                 [PARTITIONED WASSERSTEIN GCN]
+│   │   └── Classes:
+│   │       - WassersteinMessagePassing  [Message passing layer]
+│   │       - PWGCN                      [Partition W-GCN]
+│   │       - TemporalPartitionGraph     [Graph builder]
+│   │
+│   ├── wasserstein_critic.py     [WASSERSTEIN CRITIC NETWORK]
+│   │   └── Classes:
+│   │       - WassersteinCritic         [Critic network]
+│   │       - RobustWassersteinScore    [Robust scoring]
+│   │       - MultiCriticEnsemble       [Ensemble of critics]
+│   │
+│   └── contrastive_completion.py [CONTRASTIVE COMPLETION]
+│       └── Classes:
+│           - ContrastiveCompletion         [Basic completion]
+│           - AdaptiveContrastiveCompletion [Adaptive completion]
+│
+├── layers/                        [CUSTOM LAYERS]
+│   ├── __init__.py
+│   ├── sinkhorn.py               [SINKHORN DISTANCE LAYER]
+│   │   └── Classes:
+│   │       - SinkhornDistance      [Sinkhorn distance computation]
+│   │       - SinkhornAttention     [Sinkhorn attention mechanism]
+│   │       - WassersteinBarycenter [Barycenter computation]
+│   │
+│   ├── gradient_penalty.py       [GRADIENT PENALTY]
+│   │   └── Classes:
+│   │       - GradientPenalty       [WGAN-GP style penalty]
+│   │       - SpectralNormalization [Spectral norm wrapper]
+│   │
+│   └── wasserstein_pooling.py    [WASSERSTEIN POOLING]
+│       └── Classes:
+│           - WassersteinBarycenterPooling    [Barycenter pooling]
+│           - AttentionalWassersteinPooling   [Attentional pooling]
+│
+├── data/                          [DATA LOADING MODULES]
+│   ├── __init__.py
+│   ├── base_dataset.py           [BASE DATASET CLASS]
+│   │   └── Classes:
+│   │       - BaseDataset         [Abstract base class]
+│   │
+│   ├── heart_disease.py          [HEART DISEASE DATASET]
+│   │   └── Classes:
+│   │       - HeartDiseaseDataset [UCI Heart Disease loader]
+│   │
+│   ├── sepsis.py                 [SEPSIS DATASET]
+│   │   └── Classes:
+│   │       - SepsisDataset       [Sepsis Survival loader]
+│   │
+│   ├── german_credit.py          [GERMAN CREDIT DATASET]
+│   │   └── Classes:
+│   │       - GermanCreditDataset [German Credit loader]
+│   │
+│   ├── credit_card.py            [CREDIT CARD DATASET]
+│   │   └── Classes:
+│   │       - CreditCardDataset   [Credit Card Fraud loader]
+│   │
+│   ├── amazon_electronics.py     [AMAZON DATASET]
+│   │   └── Classes:
+│   │       - AmazonElectronicsDataset [Amazon 5-core loader]
+│   │
+│   ├── nyc_taxi.py               [NYC TAXI DATASET]
+│   │   └── Classes:
+│   │       - NYCTaxiDataset      [NYC Taxi loader]
+│   │
+│   └── data_loader.py            [DATA LOADER FACTORY]
+│       └── Classes:
+│           - DataLoaderFactory   [Factory for data loaders]
+│           - MultiDatasetLoader  [Multi-dataset loader]
+│
+├── training/                      [TRAINING MODULES]
+│   ├── __init__.py
+│   ├── losses.py                 [LOSS FUNCTIONS]
+│   │   └── Classes:
+│   │       - ListMLELoss         [ListMLE ranking loss]
+│   │       - ListNetLoss         [ListNet ranking loss]
+│   │       - InfoNCELoss         [InfoNCE contrastive loss]
+│   │       - RobustWassersteinLoss [Robust Wasserstein loss]
+│   │       - GradientPenaltyLoss [Gradient penalty loss]
+│   │       - CombinedLoss        [Combined loss function]
+│   │
+│   ├── trainer.py                [TRAINER CLASS]
+│   │   └── Classes:
+│   │       - Trainer             [Main training loop]
+│   │
+│   └── evaluator.py              [EVALUATOR CLASS]
+│       └── Classes:
+│           - Evaluator           [Evaluation and metrics]
+│
+└── utils/                         [UTILITY MODULES]
+    ├── __init__.py
+    ├── config.py                 [CONFIGURATION MANAGEMENT]
+    │   └── Classes:
+    │       - ModelConfig         [Model configuration]
+    │       - TrainingConfig      [Training configuration]
+    │       - DataConfig          [Data configuration]
+    │       - ExperimentConfig    [Experiment configuration]
+    │       - Config              [Main config manager]
+    │
+    ├── logger.py                 [LOGGING UTILITIES]
+    │   └── Functions:
+    │       - get_logger()        [Get logger instance]
+    │       - setup_logging()     [Setup logging]
+    │
+    ├── metrics.py                [EVALUATION METRICS]
+    │   └── Functions:
+    │       - compute_auc()       [Compute AUC]
+    │       - compute_ndcg()      [Compute NDCG]
+    │       - compute_listwise_loss() [Compute listwise loss]
+    │       - compute_precision_at_k() [Compute P@k]
+    │       - compute_recall_at_k()    [Compute R@k]
+    │
+    ├── seed.py                   [RANDOM SEED]
+    │   └── Functions:
+    │       - set_random_seed()   [Set random seed]
+    │
+    └── visualization.py          [VISUALIZATION]
+        └── Functions:
+            - plot_measure_distribution()    [Plot measure dist]
+            - plot_training_curves()         [Plot training curves]
+            - plot_simplex_projection()      [Plot simplex]
+            - plot_wasserstein_distance_matrix() [Plot W-dist matrix]
+
+└── tests/                             [UNIT TESTS]
+    ├── test_models.py
+    ├── test_layers.py
+    ├── test_data.py
+    └── test_training.py
+
+
+================================================================================
+DATASETS
+================================================================================
+
+1. Heart Disease (UCI)
+   - Files: cleveland.data, long-beach-va.data, switzerland.data, hungarian.data
+   - Size: ~303 samples
+   - Features: 13 attributes
+   - Task: Binary classification (heart disease diagnosis)
+   - Partitions: 6 (demographic, symptoms, vital_signs, lab_tests, ecg, angiography)
+
+2. Sepsis Survival (UCI)
+   - Files: s41598-020-73558-3_sepsis_survival_*.csv
+   - Size: ~110K samples
+   - Features: 3 attributes
+   - Task: Survival prediction
+   - Partitions: 2 (demographic, clinical)
+
+3. German Credit (UCI)
+   - File: german.data
+   - Size: 1,000 samples
+   - Features: 20 attributes
+   - Task: Credit risk assessment
+   - Partitions: 7 (financial_status, credit_history, loan_details, employment, demographic, assets, other)
+
+4. Credit Card Fraud
+   - File: creditcard.csv
+   - Size: 284,807 transactions
+   - Features: 30 attributes (V1-V28, Time, Amount)
+   - Task: Fraud detection (highly imbalanced)
+   - Partitions: 5 (time, pca_components_1, pca_components_2, pca_components_3, amount)
+
+5. Amazon Electronics (5-core)
+   - File: Electronics.csv
+   - Size: ~1.9M interactions
+   - Features: 9 attributes
+   - Task: Rating prediction/recommendation
+   - Partitions: 3 (user_features, item_features, interaction)
+
+6. NYC Taxi Yellow
+   - File: yellowtaxi_data.csv
+   - Size: ~3M trips
+   - Features: 11 attributes
+   - Task: Trip duration prediction
+   - Partitions: 4 (temporal, pickup_location, dropoff_location, trip_info)
+
+================================================================================
+KEY THEORETICAL CONTRIBUTIONS
+================================================================================
+
+1. IF-Measure Space Differential Geometry
+   - First rigorous embedding of intuitionistic fuzzy numbers into Wasserstein space
+   - Proof that measure-based aggregation preserves convex combination closure
+
+2. Differentiable Robust Optimization via OT
+   - Equivalence between traditional quasi-concave robust optimization and
+     Wasserstein ball measure projection
+   - Convergence rate O(e^{-λ}) for Sinkhorn robust layer
+
+3. Partition Graph Message Passing Upper Bound
+   - PW-GCN expressiveness no less than Weisfeiler-Lehman graph isomorphism test
+   - Graph-theoretic guarantee for attribute partitioning
+
+================================================================================
+USAGE EXAMPLES
+================================================================================
+
+Training:
+    python train.py --dataset heart_disease --epochs 200 --batch_size 16
+
+Evaluation:
+    python evaluate.py --checkpoint outputs/checkpoints/best_model.pth \
+                       --dataset heart_disease \
+                       --adversarial_test
+
+Custom Config:
+    python train.py --config configs/custom.yaml
+
+================================================================================

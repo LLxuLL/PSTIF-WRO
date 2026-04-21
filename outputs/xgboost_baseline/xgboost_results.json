@@ -1,0 +1,18 @@
+{
+  "model": "XGBoost",
+  "dataset": "nyc_taxi",
+  "sample_size": 100000,
+  "test_auc": 0.890326898698104,
+  "test_accuracy": 0.8070666666666667,
+  "test_precision": 0.8424657534246576,
+  "test_recall": 0.755004003202562,
+  "test_f1": 0.7963406052076003,
+  "val_auc": 0.8923246599766713,
+  "training_time_seconds": 0.1896648406982422,
+  "hyperparameters": {
+    "max_depth": 8,
+    "learning_rate": 0.05,
+    "n_estimators": 200,
+    "subsample": 0.8
+  }
+}

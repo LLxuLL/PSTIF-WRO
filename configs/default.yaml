@@ -1,0 +1,72 @@
+# PSTIF-WRO
+
+model:
+  input_dim: 1
+  hidden_dim: 512
+  measure_dim: 3
+  use_contrastive: true
+  use_robust: true
+  dropout: 0.2
+
+
+  share_embedding_weights: false
+  use_sinkhorn: true
+  sinkhorn_iter: 10
+
+
+  contrastive_temp: 0.1
+  num_negatives: 5
+  adaptive_temp: true
+
+  temporal_decay: 0.01
+  spatial_threshold: 1.0
+
+  gcn_hidden_dims: [64, 64]
+  gcn_layers: 3
+  ot_lambda: 0.1
+  use_temporal: true
+
+  barycenter_blur: 0.05
+
+  robust_eps: 0.1
+  critic_hidden_dims: [64, 32]
+  use_gradient_penalty: true
+  lambda_gp: 10.0
+  num_critics: 1
+
+training:
+  epochs: 200
+  batch_size: 1024
+  learning_rate: 0.0005
+  weight_decay: 0.00001
+  optimizer: adamw
+  scheduler: plateau
+  patience: 20
+  grad_clip: 1.0
+  
+  lambda_completion: 0.1
+  lambda_robust: 0.1
+  lambda_gp: 0.01
+  
+  ranking_loss: bce
+  temperature: 1.0
+  
+  save_interval: 10
+
+data:
+  normalize: true
+  handle_missing: true
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  num_workers: 4
+
+experiment:
+  name: pstif_wro_experiment
+  seed: 42
+  device: cuda
+  output_dir: ./outputs
+  log_dir: ./logs
+  checkpoint_dir: ./checkpoints
+  log_interval: 10
+  eval_interval: 1
