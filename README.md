@@ -29,7 +29,7 @@ The project supports 6 cross-domain datasets:
 | Credit Card Fraud | 284K | Extreme imbalance, fraud detection |
 | Amazon Electronics | 1.9M | Large-scale recommendation |
 | NYC Taxi | 3M | Spatio-temporal data, trip prediction |
-```
+
 
 ## Project Structure
 ```
@@ -70,7 +70,7 @@ pstif_wro/
 ├── requirements.txt     # Dependencies
 └── README.md           # Documentation
 ```
-```
+
 ## Installation
 
 ```bash
