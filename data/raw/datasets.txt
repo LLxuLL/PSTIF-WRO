@@ -1,0 +1,16 @@
+└── data/
+    └── raw/                           [RAW DATASETS]
+        ├── heart+disease/
+        │   ├── cleveland.data
+        │   ├── long-beach-va.data
+        │   ├── switzerland.data
+        │   └── hungarian.data
+        ├── sepsis+survival/
+        │   ├── s41598-020-73558-3_sepsis_survival_primary_cohort.csv
+        │   ├── s41598-020-73558-3_sepsis_survival_study_cohort.csv
+        │   └── s41598-020-73558-3_sepsis_survival_validation_cohort.csv
+        ├── statlog+german+credit/
+        │   └── german.data
+        ├── creditcard.csv
+        ├── Electronics.csv
+        └── yellowtaxi_data.csv
